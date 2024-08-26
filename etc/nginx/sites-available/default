@@ -1,0 +1,18 @@
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  server_name _;
+  location / {
+    return 302 http://emit.solar;
+    }
+}
+server {
+  listen *:80;
+  server_name emit.solar;
+  
+  root /home/admin/config/web;
+  autoindex on;
+  location /submit {
+    proxy_pass http://localhost:8080;
+  }
+}
