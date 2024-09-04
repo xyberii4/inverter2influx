@@ -18,7 +18,7 @@ dnsmasq="/etc/dnsmasq.conf"
 
 
 #check if wpa_wifi has been edited
-wpa_wifi_count=wc -m < $wpa_wifi
+wpa_wifi_count=wc -m < $wps_wifi
 if [[ $wpa_wifi_count -ne 188 ]] ; then
     #rewrite network files
     sudo cat $wps_wifi > $wps
@@ -47,7 +47,7 @@ if [[ $wpa_wifi_count -ne 188 ]] ; then
     echo "Pi successfully starting in client mode"
 
     #check if Wi-Fi works, otherwise switch back to AP mode
-    ((count = 30))
+    ((count = 5))
     while [[ $count -ne 0 ]] ; do
         ping -c 1 www.google.com
         rc=$?
@@ -55,7 +55,7 @@ if [[ $wpa_wifi_count -ne 188 ]] ; then
             ((count = count - 1))
         else
             sleep 0.5
-            ((count = 30))
+            ((count = 5))
         fi
     done
 
